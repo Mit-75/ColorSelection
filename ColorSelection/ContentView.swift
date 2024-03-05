@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var redSliderValue: Double = 40
-    @State private var greenSliderValue: Double = 120
-    @State private var blueSliderValue: Double = 60
+    
+    @State private var redSliderValue = Double.random(in: 0...255)
+    @State private var greenSliderValue = Double.random(in: 0...255)
+    @State private var blueSliderValue = Double.random(in: 0...255)
     
     var body: some View {
         ZStack{
@@ -22,10 +23,10 @@ struct ContentView: View {
                     green: greenSliderValue / 255,
                     blue: blueSliderValue / 255
                 )
-                    .frame(height: 170)
-                    .clipShape(.rect(cornerRadius: 20))
-                    .overlay(RoundedRectangle(cornerRadius: 20)
-                        .stroke(.white, lineWidth: 5))
+                .frame(height: 160)
+                .clipShape(.rect(cornerRadius: 20))
+                .overlay(RoundedRectangle(cornerRadius: 20)
+                    .stroke(.white, lineWidth: 3))
                 VStack {
                     RedSlidersView(sliderValue: $redSliderValue)
                         .tint(.red)
@@ -36,7 +37,7 @@ struct ContentView: View {
                 }
                 Spacer()
             }
-            .padding(20)
+            .padding(15)
         }
     }
 }
@@ -50,12 +51,12 @@ struct RedSlidersView: View {
     
     var body: some View {
         HStack() {
-            Text(sliderValue.formatted())
-                .frame(width: 55)
+            Text(lround(sliderValue).formatted())
+                .frame(width: 55, height: 35)
                 .font(.system(.title3, design: .rounded, weight: .heavy))
                 .foregroundStyle(.white)
                 .overlay(RoundedRectangle(cornerRadius: 10)
-                    .stroke(.white, lineWidth: 2))
+                    .stroke(.white, lineWidth: 1))
             Slider(value: $sliderValue, in: 1...255, step: 1)
         }
     }
